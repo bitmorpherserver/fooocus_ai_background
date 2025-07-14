@@ -11,6 +11,7 @@ import uuid
 from typing import List
 from fastapi import APIRouter, Depends, Header, Query
 from fastapi.responses import JSONResponse
+from fooocusapi.timing import server_process_time
 
 from fooocusapi.models.common.base import EnhanceCtrlNets, GenerateMaskRequest
 from fooocusapi.utils.api_utils import api_key_auth
@@ -249,7 +250,8 @@ def img_background_change(
         "success": True,
         "message": "Returned output successfully",
         "server_process_time": end-start,
-        "output_image_url": "first_element.url",
+        "output_image_url": "url",
+        "server_process_time": server_process_time["preprocess_time"] + server_process_time["processing_time"],
         "mask_generation_time": mask_time-start
     }
 
@@ -328,8 +330,8 @@ def img_inpaint_or_outpaint(
     response_data = {
         "success": True,
         "message": "Returned output successfully",
-        "server_process_time": 0.0,
-        "output_image_url": "url"
+        "output_image_url": "url",
+        "server_process_time": server_process_time["preprocess_time"] + server_process_time["processing_time"]
     }
 
     return JSONResponse(content=response_data, status_code=200)
