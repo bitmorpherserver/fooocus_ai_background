@@ -272,7 +272,7 @@ def img_background_change(
         response_model=List[GeneratedImageResult] | AsyncJobResponse,
         responses=img_generate_responses,
         tags=["GenerateV2"])
-def img_inpaint_or_outpaint(
+def object_replace(
     req_obj: ObjectReplaceRequestJson,
     #req: ImgInpaintOrOutpaintRequestJson,
     accept: str = Header(None),
@@ -327,13 +327,13 @@ def img_inpaint_or_outpaint(
         first_element = primary_response[0]
     else:
         first_element = None  # or handle accordingly
-    # output_image_url = remove_baseUrl(first_element.url)
-    # local_output_image_path = "/home/Foocus_ObjectReplace/outputs" + remove_baseUrl(first_element.url)
+    output_image_url = remove_baseUrl(first_element.url)
+    local_output_image_path = "/home/fooocus_ai_background/outputs" + remove_baseUrl(first_element.url)
 
-    # new_out_images_directory_name = '/object_replace_images/'
-    # new_local_out_image_directory = get_save_img_directory(new_out_images_directory_name)
-    # new_local_out_image_path =  new_local_out_image_directory + output_image_url
-    # move_file(local_output_image_path,new_local_out_image_directory)
+    new_out_images_directory_name = '/object_replace_images/'
+    new_local_out_image_directory = get_save_img_directory(new_out_images_directory_name)
+    new_local_out_image_path =  new_local_out_image_directory + output_image_url
+    move_file(local_output_image_path,new_local_out_image_directory)
 
     response_data = {
         "success": True,
