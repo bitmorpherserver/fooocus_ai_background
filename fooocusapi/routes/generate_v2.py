@@ -204,6 +204,8 @@ def img_background_change(
     )
     masked_image=  gm(request=generate_mask)
     print(true_performance_selection("speed"))
+    performance_selection=true_performance_selection(req_obj.steps)
+
     mask_time = time.time()
     # performance = Performance
     # print(masked_image)
@@ -214,8 +216,9 @@ def img_background_change(
         inpaint_additional_prompt = '',
         outpaint_selections = [],
         image_number= req_obj.image_count,
-        
         image_prompts = [],
+        performance_selection= performance_selection,
+        guidance_scale=req_obj.guidance_scale,
         advanced_params = AdvancedParams(invert_mask_checkbox=True)
 
     )
@@ -318,7 +321,8 @@ def object_replace(
         outpaint_distance_top = -1,
         outpaint_distance_bottom = -1,
         image_prompts = [],
-        performance_selection= performance_selection
+        performance_selection= performance_selection,
+        guidance_scale=req_obj.guidance_scale
     )
 
     req.input_image = base64_to_stream(req.input_image)
