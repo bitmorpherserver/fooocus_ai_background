@@ -40,7 +40,7 @@ class ObjectReplaceRequestJson(BaseModel):
     mask: str | None = Field('', description="Inpaint or outpaint mask as base64")
     prompt: str | None = Field('', description="Inpaint or outpaint mask as base64")
     sdGuidanceScale: float = Field(default=4, ge=1.0, le=30.0)
-    sdSteps: int = Field(default=40)
+    steps: str = Field(default="quality")
 
 
 class BackgroundGeneration(BaseModel):

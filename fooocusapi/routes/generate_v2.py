@@ -1,6 +1,13 @@
 """Generate API V2 routes
 
 """
+
+from fooocusapi.models.common.base import (
+    PerformanceSelection,
+    Lora,
+    default_loras_model
+)
+
 import time
 import base64
 import shutil
@@ -196,8 +203,9 @@ def img_background_change(
         image= req_obj.image
     )
     masked_image=  gm(request=generate_mask)
-    
+    print(true_performance_selection("speed"))
     mask_time = time.time()
+    # performance = Performance
     # print(masked_image)
     req = ImgInpaintOrOutpaintRequestJson(
         input_image = req_obj.image,
@@ -206,10 +214,7 @@ def img_background_change(
         inpaint_additional_prompt = '',
         outpaint_selections = [],
         image_number= req_obj.image_count,
-        outpaint_distance_left = -1,
-        outpaint_distance_right = -1,
-        outpaint_distance_top = -1,
-        outpaint_distance_bottom = -1,
+        
         image_prompts = [],
         advanced_params = AdvancedParams(invert_mask_checkbox=True)
 
@@ -266,6 +271,16 @@ def img_background_change(
     return JSONResponse(content=response_data, status_code=200)
 
 
+def true_performance_selection(performance :str) -> PerformanceSelection:
+    if performance=="speed" :
+        return PerformanceSelection.extreme_speed
+    elif performance=="quality":
+        return PerformanceSelection.speed
+    elif performance=="extreme_quality":
+        return PerformanceSelection.quality        
+
+
+
 
 @secure_router.post(
         path="/ai/api/v1/object_replace",
@@ -290,6 +305,7 @@ def object_replace(
     """
     if accept_query is not None and len(accept_query) > 0:
         accept = accept_query
+    performance_selection=true_performance_selection(req_obj.steps)
 
     req = ImgInpaintOrOutpaintRequestJson(
         input_image = req_obj.image,
@@ -301,7 +317,8 @@ def object_replace(
         outpaint_distance_right = -1,
         outpaint_distance_top = -1,
         outpaint_distance_bottom = -1,
-        image_prompts = []
+        image_prompts = [],
+        performance_selection= performance_selection
     )
 
     req.input_image = base64_to_stream(req.input_image)
