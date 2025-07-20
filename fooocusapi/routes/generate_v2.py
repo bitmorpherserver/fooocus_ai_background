@@ -47,6 +47,9 @@ secure_router = APIRouter(
 )
 
 
+
+
+
 @secure_router.post(
         path="/v2/generation/text-to-image-with-ip",
         response_model=List[GeneratedImageResult] | AsyncJobResponse,
@@ -197,6 +200,12 @@ def img_background_change(
     """
     if accept_query is not None and len(accept_query) > 0:
         accept = accept_query
+
+# --- Add default prompt if user does not provide one ---
+    DEFAULT_PROMPT = "A highly detailed and realistic scene, beautifully composed,background only, no people, no objects"
+    if not req_obj.prompt or req_obj.prompt.strip() == "":
+        req_obj.prompt = DEFAULT_PROMPT
+        
     # GenerateMaskRequest
     start = time.time()
     generate_mask= GenerateMaskRequest(

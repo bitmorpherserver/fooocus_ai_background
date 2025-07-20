@@ -47,7 +47,7 @@ class BackgroundGeneration(BaseModel):
     image: str = Field('', description="Init image for inpaint or outpaint as base64")
     # mask: str | None = Field('', description="Inpaint or outpaint mask as base64")
     image_count : int = Field(default=1, description="Image Count 1-4",ge=1, le=4)
-    prompt: str | None = Field('', description="Inpaint or outpaint mask as base64")
+    prompt: str | None = Field(default='', description="Inpaint or outpaint mask as base64")
     # sdGuidanceScale: float = Field(default=4, ge=1.0, le=30.0)
     # sdSteps: int = Field(default=40)
     guidance_scale: float = Field(default=7.0, ge=6.0, le=8.0)
