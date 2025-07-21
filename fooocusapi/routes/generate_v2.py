@@ -47,7 +47,7 @@ secure_router = APIRouter(
 )
 
 
-
+user_directory= "/"  #    for evobits machine   user_directory=   "/evobits/"
 
 
 @secure_router.post(
@@ -262,7 +262,7 @@ def img_background_change(
         image_name = remove_baseUrl(image.url)
     
         print(len(primary_response))
-        local_output_image_path = "/home/fooocus_ai_background/outputs" + remove_baseUrl(image.url)
+        local_output_image_path = f"/home{user_directory}fooocus_ai_background/outputs" + remove_baseUrl(image.url)
         new_out_images_directory_name = '/ai_background/'
         new_local_out_image_directory = get_save_img_directory(new_out_images_directory_name)
         new_local_out_image_path =  new_local_out_image_directory + image_name
@@ -358,7 +358,9 @@ def object_replace(
     else:
         first_element = None  # or handle accordingly
     output_image_url = remove_baseUrl(first_element.url)
-    local_output_image_path = "/home/fooocus_ai_background/outputs" + remove_baseUrl(first_element.url)
+    local_output_image_path = f"/home{user_directory}fooocus_ai_background/outputs" + remove_baseUrl(image.url)
+
+    # local_output_image_path = "/home/fooocus_ai_background/outputs" + remove_baseUrl(first_element.url)
 
     new_out_images_directory_name = '/object_replace_images/'
     new_local_out_image_directory = get_save_img_directory(new_out_images_directory_name)
