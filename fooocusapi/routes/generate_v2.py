@@ -358,7 +358,7 @@ def object_replace(
     else:
         first_element = None  # or handle accordingly
     output_image_url = remove_baseUrl(first_element.url)
-    local_output_image_path = f"/home{user_directory}fooocus_ai_background/outputs" + remove_baseUrl(image.url)
+    local_output_image_path = f"/home{user_directory}fooocus_ai_background/outputs" + remove_baseUrl(first_element.url)
 
     # local_output_image_path = "/home/fooocus_ai_background/outputs" + remove_baseUrl(first_element.url)
 
