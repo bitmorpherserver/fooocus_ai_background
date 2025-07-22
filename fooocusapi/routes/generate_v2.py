@@ -47,7 +47,7 @@ secure_router = APIRouter(
 )
 
 
-user_directory= "/"  #    for evobits machine   user_directory=   "/evobits/"
+user_directory= "/evobits/"  #    for evobits machine   user_directory=   "/evobits/"
 
 
 @secure_router.post(
